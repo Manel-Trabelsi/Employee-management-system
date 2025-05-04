@@ -3,9 +3,13 @@ Employee Management Web Application built using Flask and MySQL
 
 
 ## Installation
-
-```bash
+- To execute the project just run this:
 docker-compose up --build
+
+- To login as Admin:
+
+email: admin@example.com
+password: admin 
 
 
  
