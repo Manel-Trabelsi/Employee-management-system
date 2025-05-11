@@ -5,7 +5,9 @@ on:
     branches:
       - main
   workflow_dispatch:
-
+permissions:
+  id-token: write
+  contents: read
 env:
   PROJECT_NAME: app
   CONTAINER_REGISTRY: maamounmribah/pfe-project
@@ -40,7 +42,7 @@ jobs:
           SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-8)
 
           # Build the image with the short SHA
-          docker build -t ${{ env.CONTAINER_REGISTRY }}:$SHORT_SHA .
+          docker build -t ${{ env.CONTAINER_REGISTRY }}:app-$SHORT_SHA .
           
           echo "==> Docker Images List:"
           docker images
@@ -54,18 +56,18 @@ jobs:
           SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-8)
 
           # Push the image to Docker Hub
-          docker push "${{ env.CONTAINER_REGISTRY }}:$SHORT_SHA"
+          docker push "${{ env.CONTAINER_REGISTRY }}:app-$SHORT_SHA"
 
       # ==========================
       # Step 5: Azure Login
       # ==========================
       - name: Azure Login
-        uses: azure/login@v1
+        uses: azure/login@v1.4.0
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+          auth-type: oidc
           
 
       # ==========================
@@ -90,4 +92,4 @@ jobs:
           SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-8)
           helm upgrade --install app ./helm-chart \
             --namespace jit --create-namespace \
-            --set image.tag="$SHORT_SHA"
+            --set image.tag="app-$SHORT_SHA"
