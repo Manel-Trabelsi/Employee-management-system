@@ -11,9 +11,6 @@ env:
   CONTAINER_REGISTRY: ${{ secrets.DOCKER_USERNAME }}
 
 jobs:
-  # =======================
-  # Stage 1: Build Docker Image
-  # =======================
   build-image:
     name: Build Docker Image
     runs-on: ubuntu-latest
@@ -32,10 +29,8 @@ jobs:
         run: |
           echo "Building the Docker image..."
           docker build -t ${{ env.PROJECT_NAME }}:${{ github.sha }} .
+          docker images  # <-- Show images for verification
 
-  # =======================
-  # Stage 2: Publish Docker Image
-  # =======================
   publish:
     name: Publish Docker Image
     runs-on: ubuntu-latest
@@ -53,15 +48,12 @@ jobs:
 
       - name: Tag Docker Image
         run: |
-          docker tag ${{ env.PROJECT_NAME }}:${{ github.sha }} "${{ secrets.DOCKER_USERNAME }}/${{ env.PROJECT_NAME }}:app-${{ github.sha }}"
-
+          docker tag ${{ env.PROJECT_NAME }}:${{ github.sha }} "maamounmribah/pfe-project:app-${{ github.sha }}"
+      
       - name: Push Docker Image
         run: |
-          docker push "${{ secrets.DOCKER_USERNAME }}/${{ env.PROJECT_NAME }}:app-${{ github.sha }}"
-
-  # =======================
-  # Stage 3: Deploy to AKS
-  # =======================
+          docker push "maamounmribah/pfe-project:app-${{ github.sha }}"
+    
   deploy:
     name: Deploy to AKS
     runs-on: ubuntu-latest
