@@ -50,11 +50,21 @@ jobs:
       - name: Tag Docker Image
         run: |
           SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-8)
-          docker tag ${{ env.PROJECT_NAME }}:$SHORT_SHA "maamounmribah/pfe-project:app-$SHORT_SHA"
-      
+          echo "Tagging image app:$SHORT_SHA as maamounmribah/pfe-project:app-$SHORT_SHA"
+          
+          # Tag the image
+          docker tag app:$SHORT_SHA maamounmribah/pfe-project:app-$SHORT_SHA
+          
+          # Verify the tag
+          echo "==> Docker Images List After Tagging:"
+          docker images
+
       - name: Push Docker Image
         run: |
           SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-8)
+          echo "Pushing maamounmribah/pfe-project:app-$SHORT_SHA to Docker Hub"
+          
+          # Push the image
           docker push "maamounmribah/pfe-project:app-$SHORT_SHA"
   deploy:
     name: Deploy to AKS
