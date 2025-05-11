@@ -1,6 +1,6 @@
 #!/bin/bash
 # Wait for DB to be up (optional but recommended)
-echo "⏳ Waiting for MySQL..."
+echo "⏳ Waiting for MySQL...."
 until nc -z -v -w30 db 3306
 do
   echo "❌ MySQL is unavailable - sleeping"
