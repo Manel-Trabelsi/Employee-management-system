@@ -16,7 +16,7 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # Copy the project files into the container
-COPY . .
+COPY . /app
 
 # Set permissions for entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
