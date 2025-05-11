@@ -1,11 +1,6 @@
 #!/bin/bash
 # Wait for DB to be up (optional but recommended)
-echo "⏳ Waiting for MySQL...."
-until nc -z -v -w30 db 3306
-do
-  echo "❌ MySQL is unavailable - sleeping"
-  sleep 5
-done
+
 
 echo "✅ MySQL is up - running migrations"
 python init_db.py
