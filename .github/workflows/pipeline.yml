@@ -93,7 +93,7 @@ jobs:
       # ==========================
       # Step 8: Deploy to AKS with Helm
       # ==========================
-      - name: Deploy to AKS with Helm
+      - name: Deploy to AKS with Helm ...
         run: |
           SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-8)
           helm upgrade --install app ./helm-chart \
