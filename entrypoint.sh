@@ -7,4 +7,4 @@ python init_db.py
 python -m app.admin.create_admin
 
 # Start Flask app
-exec flask run --host=0.0.0.0
+exec flask run --host=0.0.0.0 --no-reload
