@@ -2,7 +2,8 @@ class Config(object):
     """
     Common configurations
     """
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://squaduser:squadpass@db:3306/squadmaster'
+    SQLALCHEMY_DATABASE_URI = 'mysql://squaduser:squadpass@db.app.svc.cluster.local:3306/squadmaster'
+
 
     # Put any configurations here that are common across all environments
 
