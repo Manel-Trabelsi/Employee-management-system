@@ -5,7 +5,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # Install OS dependencies
-RUN apt-get update && apt-get install -y gcc default-libmysqlclient-dev
+RUN apt-get update && apt-get install -y gcc default-libmysqlclient-dev netcat-openbsd
 
 # Set working directory
 WORKDIR /app
@@ -14,17 +14,20 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-RUN apt-get update && apt-get install -y gcc default-libmysqlclient-dev netcat-openbsd
 
-
-# Copy project
+# Copy the project files into the container
 COPY . .
+
+# Set permissions for entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
 
 # Environment variables
 ENV FLASK_APP=run.py
 ENV FLASK_ENV=development
 ENV FLASK_CONFIG=development
 
+# Expose the Flask port
 EXPOSE 5000
-RUN chmod +x /app/entrypoint.sh
-CMD ["./entrypoint.sh"]
+
+# Run the entrypoint script
+CMD ["/app/entrypoint.sh"]
