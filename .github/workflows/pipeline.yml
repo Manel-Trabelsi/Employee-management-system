@@ -28,7 +28,8 @@ jobs:
       - name: Build Docker Image
         run: |
           echo "Building the Docker image..."
-          docker build -t ${{ env.PROJECT_NAME }}:${{ github.sha }} .
+          SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-8)
+          docker build -t ${{ env.PROJECT_NAME }}:$SHORT_SHA .
           docker images  # <-- Show images for verification
 
   publish:
@@ -48,12 +49,13 @@ jobs:
 
       - name: Tag Docker Image
         run: |
-          docker tag ${{ env.PROJECT_NAME }}:${{ github.sha }} "maamounmribah/pfe-project:app-${{ github.sha }}"
+          SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-8)
+          docker tag ${{ env.PROJECT_NAME }}:$SHORT_SHA "maamounmribah/pfe-project:app-$SHORT_SHA"
       
       - name: Push Docker Image
         run: |
-          docker push "maamounmribah/pfe-project:app-${{ github.sha }}"
-    
+          SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-8)
+          docker push "maamounmribah/pfe-project:app-$SHORT_SHA"
   deploy:
     name: Deploy to AKS
     runs-on: ubuntu-latest
@@ -77,9 +79,10 @@ jobs:
       - name: Clone Helm Chart Repository
         run: |
           git clone https://github.com/Manel-Trabelsi/Main-Helm-Chart.git helm-chart
+          SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-8)
 
       - name: Deploy to AKS with Helm
         run: |
           helm upgrade --install ${{ env.PROJECT_NAME }} ./helm-chart \
             --namespace jit --create-namespace \
-            --set image.tag="app-${{ github.sha }}"
+            --set image.tag="app-$SHORT_SHA"
