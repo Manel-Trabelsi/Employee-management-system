@@ -26,5 +26,5 @@ ENV FLASK_ENV=development
 ENV FLASK_CONFIG=development
 
 EXPOSE 5000
-
+RUN chmod +x /app/entrypoint.sh
 CMD ["./entrypoint.sh"]
