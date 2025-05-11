@@ -98,4 +98,4 @@ jobs:
           SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-8)
           helm upgrade --install app ./helm-chart \
             --namespace jit --create-namespace \
-            --set image.tag="app-$SHORT_SHA"
+            --set image.App.tag="app-$SHORT_SHA"
