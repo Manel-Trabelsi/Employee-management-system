@@ -57,32 +57,53 @@ jobs:
 
           # Push the image to Docker Hub
           docker push "${{ env.CONTAINER_REGISTRY }}:app-$SHORT_SHA"
-
+      
       # ==========================
       # Step 5: Azure Login
       # ==========================
-      - name: Checkout code
-        uses: actions/checkout@v3
+      #- name: Checkout code
+      #  uses: actions/checkout@v3
         
-      - name: Log in to Azure
-        uses: azure/login@v2
-        with:
-          creds: |
-            {
-              "clientId": "${{ secrets.AZURE_CLIENT_ID }}",
-              "clientSecret": "${{ secrets.AZURE_CLIENT_SECRET }}",
-              "subscriptionId": "${{ secrets.AZURE_SUBSCRIPTION_ID }}",
-              "tenantId": "${{ secrets.AZURE_TENANT_ID }}"
-            }
+      #- name: Log in to Azure
+      #  uses: azure/login@v2
+      #  with:
+      #    creds: |
+      #      {
+      #        "clientId": "${{ secrets.AZURE_CLIENT_ID }}",
+      #        "clientSecret": "${{ secrets.AZURE_CLIENT_SECRET }}",
+      #        "subscriptionId": "${{ secrets.AZURE_SUBSCRIPTION_ID }}",
+      #        "tenantId": "${{ secrets.AZURE_TENANT_ID }}"
+      #      }
           
 
       # ==========================
       # Step 6: Get AKS credentials
       # ==========================
-      - name: Get AKS credentials
-        run: |
-          az aks get-credentials --resource-group pfe-rg --name aks-cluster --overwrite-existing
+      #- name: Get AKS credentials
+      #  run: |
+      #    az aks get-credentials --resource-group pfe-rg --name aks-cluster --overwrite-existing
 
+      
+      # ==========================
+      # Step 5: AWS Login
+      # ==========================
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      # ==========================
+      # Step 6: Get EKS credentials
+      # ==========================
+      - name: Update kubeconfig for EKS cluster
+        run: |
+          aws eks update-kubeconfig --region us-east-1 --name eks-cluster
+      
       # ==========================
       # Step 7: Clone Helm Chart Repository
       # ==========================
@@ -93,7 +114,7 @@ jobs:
       # ==========================
       # Step 8: Deploy to AKS with Helm
       # ==========================
-      - name: Deploy to AKS with Helm ...
+      - name: Deploy to AKS or EKS with Helm ...
         run: |
           SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-8)
           helm upgrade --install app ./helm-chart \
