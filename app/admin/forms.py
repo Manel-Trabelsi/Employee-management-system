@@ -27,7 +27,7 @@ class EmployeeAssignForm(FlaskForm):
     department = QuerySelectField(
         query_factory=lambda: Department.query.all(),
         get_label="name",
-        get_pk=lambda x: x.id,   # ✅ ensures the correct value
+        get_pk=lambda x: x.id,
         allow_blank=True
     )
     role = QuerySelectField(
@@ -43,3 +43,4 @@ class EmployeeAssignForm(FlaskForm):
         allow_blank=True
     )
     submit = SubmitField('Submit')
+
