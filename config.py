@@ -2,7 +2,7 @@ class Config(object):
     """
     Common configurations
     """
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://squaduser:squadpass123!@mysql-flexible-server-1.mysql.database.azure.com:3306/squadmaster?ssl_ca=/etc/ssl/certs/ca-certificates.crt'
+    SQLALCHEMY_DATABASE_URI = 'mysql://squaduser:squadpass123!@mysql-flexible-server-1.c6hgwqmk0hcw.us-east-1.rds.amazonaws.com:3306/squadmaster'
 
 
 
