@@ -8,7 +8,7 @@ docker-compose up --build
 
 - To login as Admin:
 
-email: admin@example.com
+email: admin@manpower.com
 password: admin 
 
 
