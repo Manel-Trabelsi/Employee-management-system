@@ -1,0 +1,23 @@
+# Environnements virtuels Python
+venv/
+
+# Caches Python
+__pycache__/
+*/__pycache__/
+
+# Fichiers de logs
+*.log
+
+# Fichiers de configuration locaux (variables d’environnement)
+.env
+
+# Dossiers et fichiers temporaires
+*.tmp
+*.bak
+*.swp
+
+# Mac OS
+.DS_Store
+
+# Windows
+Thumbs.db

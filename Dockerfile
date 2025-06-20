@@ -1,33 +1,37 @@
 FROM python:3.9-slim
 
-# Prevents Python from writing pyc files to disk and buffering stdout/stderr
+# Empêcher la création de .pyc et désactiver le buffering
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# Install OS dependencies
+# Installer les dépendances système
 RUN apt-get update && apt-get install -y gcc default-libmysqlclient-dev netcat-openbsd
 
-# Set working directory
+# Définir le répertoire de travail
 WORKDIR /app
 
-# Install Python dependencies
+# Copier les dépendances Python
 COPY requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Copy the project files into the container
+# Copier tous les fichiers du projet
 COPY . /app
 
-# Set permissions for entrypoint.sh
+# Copier le entrypoint.sh (explicitement)
+COPY entrypoint.sh /app/entrypoint.sh
+
+# Donner les droits d'exécution (important sur Windows)
 RUN chmod +x /app/entrypoint.sh
 
-# Environment variables
+# Définir les variables d’environnement Flask
 ENV FLASK_APP=run.py
 ENV FLASK_ENV=development
 ENV FLASK_CONFIG=development
 
-# Expose the Flask port
+# Exposer le port Flask
 EXPOSE 5000
 
-# Run the entrypoint script
+# Lancer l'application via le script
 CMD ["/app/entrypoint.sh"]
+
