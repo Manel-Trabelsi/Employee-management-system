@@ -86,22 +86,65 @@ p.copyright {
     height: 100%;
 }
 
-.intro-message {
-    position: relative;
-    padding-top: 10%;
-    padding-bottom: 20%;
+/* MODIFICATION DEMANDÉE */
+#message {
+    width: 100%;
+    max-width: 700px;
+    margin: 80px auto 30px auto; /* Espace sous navbar + espacement */
+    color: #333;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 18px;
     text-align: center;
-    margin-right: -66%;
+    line-height: 1.5;
+    position: static; /* important pour ne pas casser le flux */
 }
 
-.intro-message>h1 {
-    margin: 0;
-    font-size: 5em;
+.intro-message {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 40px;
+    margin-right: 0; /* pas de décalage */
+}
+
+.intro-message h1 {
     color: #007ee5;
+    font-size: 4.5em;
+    margin-left: 20px; /* léger décalage à droite */
+    margin-bottom: 0.2em;
 }
 
-.intro-message>h3 {
+.intro-message h3 {
     color: #343434;
+    font-weight: 400;
+}
+
+#out, #in {
+    width: 200px;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 30px;
+    background-color: white;
+    border: 1px solid #007ee5;
+    color: #007ee5;
+    transition: all 0.2s ease-in-out;
+    display: inline-block;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+
+#out:hover, #in:hover {
+    background-color: #007ee5;
+    color: white;
+}
+
+#in {
+    border-color: #26A69A;
+    color: #26A69A;
+}
+
+#in:hover {
+    background-color: #26A69A;
 }
 
 .lead {
@@ -169,114 +212,6 @@ body {
 
 .homelogo:hover {
     color: #007ee5;
-}
-
-#out {
-    width: 200px;
-    padding: 10px 20px;
-    font-size: 20px;
-    font-family: 'Montserrat', sans-serif;
-    border-radius: 30px;
-    background-color: white;
-    color: #007ee5;
-    border: 1px solid #007ee5;
-    transition-property: all;
-    transition-duration: 0.2s;
-    transition-timing-function: ease-in-out;
-}
-
-#out:hover {
-    text-decoration: none;
-    background-color: #007ee5;
-    color: white;
-}
-
-#message {
-    position: absolute;
-    z-index: 999;
-    width: 450px;
-    top: 55%;
-    left: 60%;
-    color: lightgrey;
-    text-align: center;
-    margin: 0;
-}
-
-#in {
-    width: 200px;
-    padding: 10px 20px;
-    font-size: 20px;
-    font-family: 'Montserrat', sans-serif;
-    border-radius: 30px;
-    background-color: white;
-    color: #26A69A;
-    border: 1px solid #26A69A;
-    transition-property: all;
-    transition-duration: 0.2s;
-    transition-timing-function: ease-in-out;
-}
-
-#in:hover {
-    text-decoration: none;
-    background-color: #26A69A;
-    color: white;
-}
-
-.btn-default {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    transition-property: all;
-    transition-duration: 0.2s;
-    transition-timing-function: ease-in-out;
-    border: 1px solid #007ee5;
-    box-sizing: border-box;
-}
-
-.btn-default:hover {
-    text-decoration: none;
-    background-color: #007ee5;
-    color: white;
-    border: 1px solid #007ee5;
-}
-
-#db {
-    width: 200px;
-    padding: 10px 20px;
-    font-size: 20px;
-    font-family: 'Montserrat', sans-serif;
-    border-radius: 30px;
-    background-color: white;
-    color: #03A9F4;
-    border: 1px solid #03A9F4;
-    transition-property: all;
-    transition-duration: 0.2s;
-    transition-timing-function: ease-in-out;
-}
-
-#db:hover {
-    text-decoration: none;
-    background-color: #03A9F4;
-    color: white;
-}
-
-#profilebtn {
-    width: 200px;
-    padding: 10px 20px;
-    font-size: 20px;
-    font-family: 'Montserrat', sans-serif;
-    border-radius: 30px;
-    background-color: white;
-    color: #26A69A;
-    border: 1px solid #26A69A;
-    transition-property: all;
-    transition-duration: 0.2s;
-    transition-timing-function: ease-in-out;
-}
-
-#profilebtn:hover {
-    text-decoration: none;
-    background-color: #26A69A;
-    color: white;
 }
 
 .red:hover {
