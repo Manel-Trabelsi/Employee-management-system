@@ -4,7 +4,7 @@ from app.models import Employee
 app = create_app('development')  # or os.getenv('FLASK_CONFIG')
 
 with app.app_context():
-    admin_email = 'admin@example.com'
+    admin_email = 'admin@manpower.com'
     existing_admin = Employee.query.filter_by(email=admin_email).first()
     if not existing_admin:
         admin = Employee(
